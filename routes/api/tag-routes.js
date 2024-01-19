@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
   // be sure to include its associated Product data
   Tag.findOne({
     where: {
-      id: req.body.id
+      id: req.params.id
     } 
   }).then((tagData=> {
      res.json(tagData)
@@ -46,12 +46,11 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
-  Tag.update({
+  Tag.update(req.body,{
     where: {
-      id: req.body.id
+      id: req.params.id
     } 
-  })
-  .then((updatedTag)=>{
+  }).then((updatedTag)=>{
     res.json(updatedTag)
   }).catch((err)=>{
     res.json(err)
